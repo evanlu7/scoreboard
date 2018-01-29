@@ -1,35 +1,79 @@
-function Application (){
-	return(
-<div className="scoreboard">
-	<div className="header">
-<h1>Scoreboard</h1>
+var PLAYERS = [
+	{
+		name:"Jim Hoskins",
+		score: 31
+	},
+	{
+		name: "Andrew Chalkley",
+		score:69	
+	},
+	{
+		name: "Alena Holligan",
+		score: 40
+
+	},
+]
+
+function Header (props) {
+	return(	
+		<div className="header">
+<h1>{props.title}</h1>
 	</div>
-		<div className="players">
-			<div className="player">
+		);
+}
+
+Header.propTypes = {
+	title: React.PropTypes.string.isRequired,
+}
+
+function Counter (props){
+	return (
+		<div className="counter">
+			<button className="counter-action decrement"> - </button>
+			<div className="counter-score">{props.score} </div>
+			<button className="counter-action increment"> + </button>
+				</div>
+				);
+}
+
+Counter.propTypes = {
+	score:React.PropTypes.number.isRequired,
+
+
+}
+
+
+
+function Player (props){
+	return(
+
+		<div className="player">
 				<div className="player-name">
-			Jim Hoskins
+			{props.name}
 				</div>
 			<div className="player-score">
-				<div className="counter">
-					<button className="counter-action decrement"> - </button>
-					<div className="counter-score"> 31 </div>
-					<button className="counter-action increment"> + </button>
-				</div>
+				<Counter score={props.score} />
 			</div>
 			</div>
 
-			<div className="player">
-				<div className="player-name">
-			Ben Dover
-				</div>
-			<div className="player-score">
-				<div className="counter">
-					<button className="counter-action decrement"> - </button>
-					<div className="counter-score"> 69 </div>
-					<button className="counter-action increment"> + </button>
-				</div>
-			</div>
-			</div>
+		);
+}
+
+Player.propTypes = {
+	name:React.PropTypes.string.isRequired,
+	score:React.PropTypes.number.isRequired,
+
+}
+
+
+function Application (props){
+	return(
+<div className="scoreboard">
+<Header title={props.title}/>
+		<div className="players">
+			<Player name = "Jim Hoskins" score = {31} />
+			<Player name = "Andrew Chalkley" score = {69} />
+	
 
 
 
@@ -37,6 +81,17 @@ function Application (){
 		</div>
 </div>
 		);
+}
+
+Application.propTypes = {
+	title: React.PropTypes.string,
+	players: React.PropTypes.arrayOf(React.PropTypes.shape({
+		name: React.PropTypes.string.isRequired,
+		score: React.PropTypes.number.isRequired,})).isRequired
+};
+
+Application.defaultProps = {
+	title:"Scoreboard"
 }
 
 ReactDOM.render(<Application />, document.getElementById('container'));
