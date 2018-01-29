@@ -1,18 +1,21 @@
 var PLAYERS = [
 	{
 		name:"Jim Hoskins",
-		score: 31
+		score: 31,
+		id:1
 	},
 	{
 		name: "Andrew Chalkley",
-		score:69	
+		score:69,
+		id:2	
 	},
 	{
 		name: "Alena Holligan",
-		score: 40
+		score: 40,
+		id:3
 
 	},
-]
+];
 
 function Header (props) {
 	return(	
@@ -71,8 +74,10 @@ function Application (props){
 <div className="scoreboard">
 <Header title={props.title}/>
 		<div className="players">
-			<Player name = "Jim Hoskins" score = {31} />
-			<Player name = "Andrew Chalkley" score = {69} />
+		{props.players.map(function(player){
+			return <Player name={player.name} score={player.score} key={player.id} />
+		})}
+
 	
 
 
@@ -87,14 +92,15 @@ Application.propTypes = {
 	title: React.PropTypes.string,
 	players: React.PropTypes.arrayOf(React.PropTypes.shape({
 		name: React.PropTypes.string.isRequired,
-		score: React.PropTypes.number.isRequired,})).isRequired
+		score: React.PropTypes.number.isRequired,
+		id: React.PropTypes.number.isRequired,})).isRequired,
 };
 
 Application.defaultProps = {
 	title:"Scoreboard"
 }
 
-ReactDOM.render(<Application />, document.getElementById('container'));
+ReactDOM.render(<Application players={PLAYERS} />, document.getElementById('container'));
 // 2 arguments:
 // 1. virtual dom element 
 // 2. real dom element where we want to place the virtual dom
