@@ -1,3 +1,5 @@
+// current in stateless functional components
+
 var PLAYERS = [
 	{
 		name:"Jim Hoskins",
